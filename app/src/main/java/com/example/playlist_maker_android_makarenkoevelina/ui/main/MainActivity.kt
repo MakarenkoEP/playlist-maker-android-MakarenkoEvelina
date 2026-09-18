@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.example.playlist_maker_android_makarenkoevelina.ui.theme.PlaylistMakerTheme
-import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -35,10 +34,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.playlist_maker_android_makarenkoevelina.R
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import android.content.Intent
+import com.example.playlist_maker_android_makarenkoevelina.ui.search.SearchActivity
+import com.example.playlist_maker_android_makarenkoevelina.ui.settings.SettingsActivity
 
 class MainActivity : ComponentActivity() {
 
@@ -47,29 +45,36 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             PlaylistMakerTheme {
-                MainScreen()
+                MainScreen(
+                    onSearchClick = {
+                        val intent = Intent(
+                            this@MainActivity,
+                            SearchActivity::class.java
+                        )
+                        startActivity(intent)
+                    },
+                    onSettingsClick = {
+                        val intent = Intent(
+                            this@MainActivity,
+                            SettingsActivity::class.java
+                        )
+                        startActivity(intent)
+                    }
+                )
             }
         }
     }
 }
 
 @Composable
-private fun MainScreen() {
-    val context = androidx.compose.ui.platform.LocalContext.current
+private fun MainScreen(
+    onSearchClick: () -> Unit,
+    onSettingsClick: () -> Unit
+) {
     val searchTitle = stringResource(R.string.search)
     val playlistsTitle = stringResource(R.string.playlists)
     val favoritesTitle = stringResource(R.string.favorites)
     val settingsTitle = stringResource(R.string.settings)
-    var currentToast by remember { mutableStateOf<Toast?>(null) }
-    val showButtonToast: (String) -> Unit = { title ->
-        currentToast?.cancel()
-        currentToast = Toast.makeText(
-            context,
-            context.getString(R.string.button_pressed, title),
-            Toast.LENGTH_SHORT
-        )
-        currentToast?.show()
-    }
 
     Column(
         modifier = Modifier
@@ -96,22 +101,22 @@ private fun MainScreen() {
                 MainMenuItem(
                     title = searchTitle,
                     iconRes = R.drawable.ic_search,
-                    onClick = { showButtonToast(searchTitle) }
+                    onClick = onSearchClick
                 )
                 MainMenuItem(
                     title = playlistsTitle,
                     iconRes = R.drawable.ic_library,
-                    onClick = { showButtonToast(playlistsTitle) }
+                    onClick = {}
                 )
                 MainMenuItem(
                     title = favoritesTitle,
                     iconRes = R.drawable.ic_favorite,
-                    onClick = { showButtonToast(favoritesTitle) }
+                    onClick = {}
                 )
                 MainMenuItem(
                     title = settingsTitle,
                     iconRes = R.drawable.ic_settings,
-                    onClick = { showButtonToast(settingsTitle) }
+                    onClick = onSettingsClick
                 )
             }
         }
