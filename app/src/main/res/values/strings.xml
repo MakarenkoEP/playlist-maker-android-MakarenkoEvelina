@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">playlist-maker-android-MakarenkoEvelina</string>
+    <string name="app_name">Playlist maker</string>
+    <string name="search">Поиск</string>
+    <string name="playlists">Плейлисты</string>
+    <string name="favorites">Избранное</string>
+    <string name="settings">Настройки</string>
+    <string name="button_pressed">Нажата кнопка &quot;%1$s&quot;</string>
 </resources>
