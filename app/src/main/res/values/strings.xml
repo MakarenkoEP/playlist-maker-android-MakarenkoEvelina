@@ -4,5 +4,4 @@
     <string name="playlists">Плейлисты</string>
     <string name="favorites">Избранное</string>
     <string name="settings">Настройки</string>
-    <string name="button_pressed">Нажата кнопка &quot;%1$s&quot;</string>
 </resources>
