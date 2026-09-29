@@ -29,10 +29,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.playlist_maker_android_makarenkoevelina.R
 import android.content.Intent
 import androidx.compose.foundation.rememberScrollState
@@ -140,11 +138,7 @@ private fun MainHeader() {
         Text(
             text = stringResource(R.string.app_name),
             color = Color.White,
-            fontFamily = FontFamily.SansSerif,
-            fontWeight = FontWeight.Medium,
-            fontSize = 22.sp,
-            lineHeight = 22.sp,
-            letterSpacing = 0.sp
+            style = MaterialTheme.typography.titleLarge
         )
     }
 }
@@ -175,11 +169,8 @@ private fun MainMenuItem(
         Text(
             text = title,
             color = MaterialTheme.colorScheme.onBackground,
-            fontFamily = FontFamily.SansSerif,
-            fontWeight = FontWeight.Medium,
-            fontSize = 22.sp,
-            lineHeight = 22.sp,
-            letterSpacing = 0.sp
+            style = MaterialTheme.typography.titleLarge,
+            textAlign = TextAlign.Center
         )
 
         Spacer(modifier = Modifier.weight(1f))

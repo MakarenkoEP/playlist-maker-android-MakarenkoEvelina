@@ -33,6 +33,7 @@ fun PlaylistMakerTheme(
         } else {
             LightColors
         },
+        typography = PlaylistMakerTypography,
         content = content
     )
 }
