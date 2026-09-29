@@ -35,6 +35,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.playlist_maker_android_makarenkoevelina.R
 import android.content.Intent
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import com.example.playlist_maker_android_makarenkoevelina.ui.search.SearchActivity
 import com.example.playlist_maker_android_makarenkoevelina.ui.settings.SettingsActivity
 
@@ -91,11 +93,13 @@ private fun MainScreen(
             color = MaterialTheme.colorScheme.background
         ) {
             Column(
-                modifier = Modifier.padding(
-                    start = 16.dp,
-                    top = 8.dp,
-                    end = 16.dp
-                ),
+                modifier = Modifier
+                    .verticalScroll(rememberScrollState())
+                    .padding(
+                        start = 16.dp,
+                        top = 8.dp,
+                        end = 16.dp
+                    ),
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 MainMenuItem(
