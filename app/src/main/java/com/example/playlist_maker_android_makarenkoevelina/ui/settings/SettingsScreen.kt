@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.playlist_maker_android_makarenkoevelina.R
 import com.example.playlist_maker_android_makarenkoevelina.ui.components.BackButton
+import com.example.playlist_maker_android_makarenkoevelina.ui.components.HeaderTitle
 import com.example.playlist_maker_android_makarenkoevelina.ui.theme.YPBlue
 import com.example.playlist_maker_android_makarenkoevelina.ui.theme.YPLightGray
 import com.example.playlist_maker_android_makarenkoevelina.ui.theme.YPTextGray
@@ -88,20 +89,7 @@ private fun SettingsHeader(onBackClick: () -> Unit) {
     ) {
         Row(modifier = Modifier.height(48.dp)) {
             BackButton(onClick = onBackClick)
-            Box(
-                modifier = Modifier
-                    .width(208.dp)
-                    .height(48.dp),
-                contentAlignment = Alignment.CenterStart
-            ) {
-                Text(
-                    text = stringResource(R.string.settings),
-                    modifier = Modifier.padding(start = 12.dp),
-                    style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.onBackground,
-                    maxLines = 1
-                )
-            }
+            HeaderTitle(text = stringResource(R.string.settings))
         }
     }
 }
