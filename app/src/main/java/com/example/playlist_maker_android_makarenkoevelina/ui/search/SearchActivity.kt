@@ -33,11 +33,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.example.playlist_maker_android_makarenkoevelina.R
+import com.example.playlist_maker_android_makarenkoevelina.ui.components.BackButton
 import com.example.playlist_maker_android_makarenkoevelina.ui.theme.LocalSearchFieldColors
 import com.example.playlist_maker_android_makarenkoevelina.ui.theme.PlaylistMakerTheme
 import com.example.playlist_maker_android_makarenkoevelina.ui.theme.YPBlack
@@ -79,38 +79,20 @@ private fun SearchScreen(onBackClick: () -> Unit) {
                     .height(48.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Box(
-                    modifier = Modifier
-                        .size(48.dp)
-                        .clickable(onClick = onBackClick),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_arrow_back),
-                        contentDescription = stringResource(R.string.back),
-                        modifier = Modifier.size(16.dp),
-                        tint = MaterialTheme.colorScheme.onBackground
-                    )
-                }
+                BackButton(onClick = onBackClick)
                 Box(
                     modifier = Modifier
                         .width(208.dp)
-                        .height(48.dp)
+                        .height(48.dp),
+                    contentAlignment = Alignment.CenterStart
                 ) {
-                    Box(
-                        modifier = Modifier
-                            .padding(start = 12.dp, top = 10.dp)
-                            .width(63.dp)
-                            .height(26.dp),
-                        contentAlignment = Alignment.CenterStart
-                    ) {
-                        Text(
-                            text = searchTitle,
-                            style = MaterialTheme.typography.titleLarge,
-                            color = MaterialTheme.colorScheme.onBackground,
-                            maxLines = 1
-                        )
-                    }
+                    Text(
+                        text = searchTitle,
+                        modifier = Modifier.padding(start = 12.dp),
+                        style = MaterialTheme.typography.titleLarge,
+                        color = MaterialTheme.colorScheme.onBackground,
+                        maxLines = 1
+                    )
                 }
             }
         }

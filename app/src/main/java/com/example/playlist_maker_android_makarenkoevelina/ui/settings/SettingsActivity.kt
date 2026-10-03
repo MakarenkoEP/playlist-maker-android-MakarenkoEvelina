@@ -1,18 +1,16 @@
 package com.example.playlist_maker_android_makarenkoevelina.ui.settings
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import androidx.annotation.StringRes
 import com.example.playlist_maker_android_makarenkoevelina.R
 import com.example.playlist_maker_android_makarenkoevelina.ui.theme.PlaylistMakerTheme
+import androidx.core.net.toUri
 
 class SettingsActivity : ComponentActivity() {
 
@@ -21,18 +19,40 @@ class SettingsActivity : ComponentActivity() {
 
         setContent {
             PlaylistMakerTheme {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(MaterialTheme.colorScheme.background),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = stringResource(R.string.settings),
-                        color = MaterialTheme.colorScheme.onBackground
-                    )
-                }
+                SettingsScreen(
+                    onBackClick = { finish() },
+                    onShareClick = { message ->
+                        val intent = Intent(Intent.ACTION_SEND).apply {
+                            type = "text/plain"
+                            putExtra(Intent.EXTRA_TEXT, message)
+                        }
+                        openExternal(Intent.createChooser(intent, null), R.string.settings_no_share_app)
+                    },
+                    onSupportClick = { email, subject, body ->
+                        val intent = Intent(Intent.ACTION_SENDTO).apply {
+                            data = "mailto:".toUri()
+                            putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
+                            putExtra(Intent.EXTRA_SUBJECT, subject)
+                            putExtra(Intent.EXTRA_TEXT, body)
+                        }
+                        openExternal(intent, R.string.settings_no_email_app)
+                    },
+                    onAgreementClick = { url ->
+                        openExternal(
+                            Intent(Intent.ACTION_VIEW, url.toUri()),
+                            R.string.settings_no_browser_app
+                        )
+                    }
+                )
             }
+        }
+    }
+
+    private fun openExternal(intent: Intent, @StringRes missingAppMessage: Int) {
+        try {
+            startActivity(intent)
+        } catch (_: ActivityNotFoundException) {
+            Toast.makeText(this, missingAppMessage, Toast.LENGTH_SHORT).show()
         }
     }
 }
