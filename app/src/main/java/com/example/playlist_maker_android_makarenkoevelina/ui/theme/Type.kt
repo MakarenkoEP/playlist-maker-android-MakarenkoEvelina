@@ -22,5 +22,11 @@ val PlaylistMakerTypography = Typography(
         fontSize = 22.sp,
         lineHeight = 22.sp,
         letterSpacing = 0.sp
+    ),
+    bodyLarge = TextStyle(
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp,
+        lineHeight = 16.sp,
+        letterSpacing = 0.sp
     )
 )
