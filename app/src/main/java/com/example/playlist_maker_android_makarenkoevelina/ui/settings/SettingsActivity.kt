@@ -1,34 +1,15 @@
 package com.example.playlist_maker_android_makarenkoevelina.ui.settings
 
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
-import androidx.core.net.toUri
-import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.annotation.StringRes
+import androidx.core.net.toUri
 import com.example.playlist_maker_android_makarenkoevelina.R
-import com.example.playlist_maker_android_makarenkoevelina.ui.theme.PlaylistMakerTheme
 
-class SettingsActivity : ComponentActivity() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setContent {
-            PlaylistMakerTheme {
-                SettingsScreen(
-                    onBackClick = { finish() },
-                    onShareClick = ::shareApp,
-                    onSupportClick = ::contactDevelopers,
-                    onAgreementClick = ::openAgreement
-                )
-            }
-        }
-    }
-
-    private fun shareApp(message: String) {
+internal class SettingsActions(private val context: Context) {
+    fun shareApp(message: String) {
         val intent = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
             putExtra(Intent.EXTRA_TEXT, message)
@@ -36,7 +17,7 @@ class SettingsActivity : ComponentActivity() {
         openExternal(Intent.createChooser(intent, null), R.string.settings_no_share_app)
     }
 
-    private fun contactDevelopers(email: String, subject: String, body: String) {
+    fun contactDevelopers(email: String, subject: String, body: String) {
         val intent = Intent(Intent.ACTION_SENDTO).apply {
             data = "mailto:".toUri()
             putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
@@ -46,15 +27,15 @@ class SettingsActivity : ComponentActivity() {
         openExternal(intent, R.string.settings_no_email_app)
     }
 
-    private fun openAgreement(url: String) {
+    fun openAgreement(url: String) {
         openExternal(Intent(Intent.ACTION_VIEW, url.toUri()), R.string.settings_no_browser_app)
     }
 
     private fun openExternal(intent: Intent, @StringRes missingAppMessage: Int) {
         try {
-            startActivity(intent)
+            context.startActivity(intent)
         } catch (_: ActivityNotFoundException) {
-            Toast.makeText(this, missingAppMessage, Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, missingAppMessage, Toast.LENGTH_SHORT).show()
         }
     }
 }

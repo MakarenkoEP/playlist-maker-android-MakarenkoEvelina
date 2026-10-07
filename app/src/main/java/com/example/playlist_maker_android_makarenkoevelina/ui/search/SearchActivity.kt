@@ -1,8 +1,5 @@
 package com.example.playlist_maker_android_makarenkoevelina.ui.search
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -40,24 +37,10 @@ import com.example.playlist_maker_android_makarenkoevelina.R
 import com.example.playlist_maker_android_makarenkoevelina.ui.components.BackButton
 import com.example.playlist_maker_android_makarenkoevelina.ui.components.HeaderTitle
 import com.example.playlist_maker_android_makarenkoevelina.ui.theme.LocalSearchFieldColors
-import com.example.playlist_maker_android_makarenkoevelina.ui.theme.PlaylistMakerTheme
 import com.example.playlist_maker_android_makarenkoevelina.ui.theme.YPBlack
 
-class SearchActivity : ComponentActivity() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setContent {
-            PlaylistMakerTheme {
-                SearchScreen { finish() }
-            }
-        }
-    }
-}
-
 @Composable
-private fun SearchScreen(onBackClick: () -> Unit) {
+internal fun SearchScreen(onBackClick: () -> Unit) {
     var query by rememberSaveable { mutableStateOf("") }
     val searchColors = LocalSearchFieldColors.current
     val searchTitle = stringResource(R.string.search)
