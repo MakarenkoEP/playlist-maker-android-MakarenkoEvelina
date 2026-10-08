@@ -4,4 +4,18 @@
     <string name="playlists">Плейлисты</string>
     <string name="favorites">Избранное</string>
     <string name="settings">Настройки</string>
+    <string name="back">Назад</string>
+    <string name="clear_search">Очистить поиск</string>
+    <string name="settings_dark_theme">Тёмная тема</string>
+    <string name="settings_share">Поделиться приложением</string>
+    <string name="settings_support">Написать в поддержку</string>
+    <string name="settings_agreement">Пользовательское соглашение</string>
+    <string name="settings_share_message">Playlist Maker: https://github.com/MakarenkoEP/playlist-maker-android-MakarenkoEvelina/releases</string>
+    <string name="settings_email_address" translatable="false">emakare@sfedu.ru</string>
+    <string name="settings_email_subject">Сообщение разработчикам и разработчицам приложения Playlist Maker</string>
+    <string name="settings_email_body">Спасибо разработчикам и разработчицам за крутое приложение!</string>
+    <string name="settings_offer_url" translatable="false">https://yandex.ru/legal/practicum_offer/</string>
+    <string name="settings_no_share_app">Нет приложения для отправки</string>
+    <string name="settings_no_email_app">Нет приложения для почты</string>
+    <string name="settings_no_browser_app">Нет браузера</string>
 </resources>

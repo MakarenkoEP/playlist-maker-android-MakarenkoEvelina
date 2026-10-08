@@ -4,6 +4,29 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.graphics.Color
+
+data class SearchFieldColors(
+    val background: Color,
+    val icon: Color,
+    val cursor: Color
+)
+
+private val LightSearchFieldColors = SearchFieldColors(
+    background = YPLightGray,
+    icon = YPTextGray,
+    cursor = Color(0xFF3F8AE0)
+)
+
+private val DarkSearchFieldColors = SearchFieldColors(
+    background = YPWhite,
+    icon = YPBlack,
+    cursor = YPBlue
+)
+
+val LocalSearchFieldColors = staticCompositionLocalOf { LightSearchFieldColors }
 
 private val LightColors = lightColorScheme(
     primary = YPBlue,
@@ -27,12 +50,18 @@ private val DarkColors = darkColorScheme(
 fun PlaylistMakerTheme(
     content: @Composable () -> Unit
 ) {
-    MaterialTheme(
-        colorScheme = if (isSystemInDarkTheme()) { // в зависимости от системной темы
-            DarkColors
-        } else {
-            LightColors
-        },
-        content = content
-    )
+    val darkTheme = isSystemInDarkTheme() // в зависимости от системной темы
+    CompositionLocalProvider(
+        LocalSearchFieldColors provides if (darkTheme) DarkSearchFieldColors else LightSearchFieldColors
+    ) {
+        MaterialTheme(
+            colorScheme = if (darkTheme) {
+            DarkColors 
+            } else {
+                LightColors
+            },
+            typography = PlaylistMakerTypography,
+            content = content
+        )
+    }
 }

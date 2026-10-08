@@ -1,38 +1,41 @@
 package com.example.playlist_maker_android_makarenkoevelina.ui.settings
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import android.content.ActivityNotFoundException
+import android.content.Context
+import android.content.Intent
+import android.widget.Toast
+import androidx.annotation.StringRes
+import androidx.core.net.toUri
 import com.example.playlist_maker_android_makarenkoevelina.R
-import com.example.playlist_maker_android_makarenkoevelina.ui.theme.PlaylistMakerTheme
 
-class SettingsActivity : ComponentActivity() {
+internal class SettingsActions(private val context: Context) {
+    fun shareApp(message: String) {
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_TEXT, message)
+        }
+        openExternal(Intent.createChooser(intent, null), R.string.settings_no_share_app)
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    fun contactDevelopers(email: String, subject: String, body: String) {
+        val intent = Intent(Intent.ACTION_SENDTO).apply {
+            data = "mailto:".toUri()
+            putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
+            putExtra(Intent.EXTRA_SUBJECT, subject)
+            putExtra(Intent.EXTRA_TEXT, body)
+        }
+        openExternal(intent, R.string.settings_no_email_app)
+    }
 
-        setContent {
-            PlaylistMakerTheme {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(MaterialTheme.colorScheme.background),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = stringResource(R.string.settings),
-                        color = MaterialTheme.colorScheme.onBackground
-                    )
-                }
-            }
+    fun openAgreement(url: String) {
+        openExternal(Intent(Intent.ACTION_VIEW, url.toUri()), R.string.settings_no_browser_app)
+    }
+
+    private fun openExternal(intent: Intent, @StringRes missingAppMessage: Int) {
+        try {
+            context.startActivity(intent)
+        } catch (_: ActivityNotFoundException) {
+            Toast.makeText(context, missingAppMessage, Toast.LENGTH_SHORT).show()
         }
     }
 }
